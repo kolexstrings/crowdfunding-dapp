@@ -15,7 +15,7 @@ console.log(output);
 
 for (let contract in output) {
     fs.outputJsonSync (
-        path.resolve(buildPath, contract.replace(':', '') + 'json'), 
+        path.resolve(buildPath, contract.replace(':', '') + '.json'), 
         output[contract]
     );
 }
