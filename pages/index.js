@@ -2,6 +2,7 @@ import React from 'react';
 import factory from '../ethereum/factory';
 import {Card, Button} from 'semantic-ui-react'
 import Layout from '../components/Layout'
+import {Link} from '../routes';
 
 const CampaignIndex = ({ campaigns }) => {
   
@@ -12,7 +13,9 @@ const CampaignIndex = ({ campaigns }) => {
         <Card.Content>
           <Card.Header>{address}</Card.Header>
           <Card.Description>
-            <a>View Campaign</a>
+            <Link route={`/campaigns/${address}`}>
+              <a>View Campaign</a>
+            </Link>
           </Card.Description>
         </Card.Content>
       </Card>
@@ -22,12 +25,18 @@ const CampaignIndex = ({ campaigns }) => {
     <Layout>
       <div>
       <h3>Open Campaigns</h3>
-        <Button 
-        floated='right'
-        content='Create Campaign' 
-        icon='add circle' 
-        primary 
-        />
+
+        <Link route = "/campaigns/new">
+          <a>
+          <Button 
+            floated='right'
+            content='Create Campaign' 
+            icon='add circle' 
+            primary 
+          />
+          </a>
+        </Link>
+       
         <Card.Group>{items}</Card.Group>
       </div>
     </Layout>
