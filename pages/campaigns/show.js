@@ -1,11 +1,12 @@
 import React from 'react';
+import Layout from '../../components/Layout';
 
 const CampaignShow = () => {
 
     return (
-        <div>
-            <h3>Campaign Show</h3>
-        </div>
+        <Layout>
+            <h1>This shows</h1>
+        </Layout>
     );
 }
 
