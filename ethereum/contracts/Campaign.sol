@@ -78,7 +78,7 @@ contract Campaign {
         request.complete = true;
     }
 
-    function getSummary () public view returns (
+    function getSummary() public view returns (
         uint, uint, uint, uint, address
         ) {
         return (
@@ -90,7 +90,7 @@ contract Campaign {
         );
     }
 
-    function getRequestsCount () public view returns (uint) {
+    function getRequestsCount() public view returns (uint) {
         return requests.length;
     }  
 }
