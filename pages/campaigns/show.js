@@ -85,7 +85,7 @@ const CampaignShow = ({ summary, address }) => {
           </Link>
         </Grid.Column>
       </Grid.Row>
-      
+
     </Grid>
   </Layout>
    
