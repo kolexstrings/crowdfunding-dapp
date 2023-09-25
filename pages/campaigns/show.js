@@ -1,10 +1,11 @@
 import React from 'react';
 import Layout from '../../components/Layout';
 import Campaign from '../../ethereum/campaign';
-import { Card } from 'semantic-ui-react';
+import { Card, Grid, } from 'semantic-ui-react';
 import web3 from '../../ethereum/web3';
+import ContributeForm from '../../components/ContributeForm';
 
-const CampaignShow = ({ summary }) => {
+const CampaignShow = ({ summary, address }) => {
 
   if(summary) {
     console.log("Summary found in CampaignShow: ", summary) 
@@ -19,10 +20,12 @@ const CampaignShow = ({ summary }) => {
     approversCount,
     manager,
   } = summary;
+  const {} = address;
 
   console.log("minimum contribution: ", minimumContribution)
   console.log("request count: ", requestsCount);
   console.log("approvers count: ", approversCount);
+  console.log("Address: ", address);
 
   const items = [
     {
@@ -33,18 +36,18 @@ const CampaignShow = ({ summary }) => {
         style: { overflowWrap: "break-word" }
     },
     {
-      header: minimumContribution,
-      meta: "Minimum contribution (Wei)",
+      header: minimumContribution.toString(),
+      meta: "Minimum contribution (wei)",
       description: "You must contribute at least this much wei to become a minimum contribution",
     },
     {
-      header: requestsCount,
+      header: requestsCount.toString(),
       meta: "Number of Request", 
       description: 
       "The request count is the total number attempt tp withdraw money from the contract, request must be approved by approvers "
     },
     {
-      header: approversCount,
+      header: approversCount.toString(),
       meta: "Number of Approvers",
       description: 
       "A number of people who have already donated to this campaign and have earned the right to approve request"
@@ -58,9 +61,21 @@ const CampaignShow = ({ summary }) => {
 
   return (
     <Layout> 
-      <h3>Campaign Show</h3>
-      <Card.Group items={items} />
-    </Layout>
+     <Grid columns={2}>
+      <Grid.Row>
+        <Grid.Column width={10}>
+        <h3>Campaign Show</h3>
+      {summary && (
+        <Card.Group items={items} />
+      )}
+        </Grid.Column>
+
+          <Grid.Column width={6}>
+            <ContributeForm address={address} />
+          </Grid.Column>
+      </Grid.Row>
+    </Grid>
+  </Layout>
    
   );
 };
@@ -71,6 +86,7 @@ CampaignShow.getInitialProps = async (props) => {
     const summary = await campaign.methods.getSummary().call();
     console.log('Summary: ', summary);
     return {
+      address: props.query.address,
       summary : {
         minimumContribution: summary[0],
         balance: summary[1],
