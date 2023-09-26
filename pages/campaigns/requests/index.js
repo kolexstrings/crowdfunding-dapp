@@ -3,10 +3,23 @@ import { Button, Table } from 'semantic-ui-react';
 import {Link} from '../../../routes';
 import Layout from '../../../components/Layout';
 import Campaign from '../../../ethereum/campaign';
+import RequestRow from '../../../components/RequestRow';
 
-const RequestIndex = ({address}) => {
+const RequestIndex = ({address, requests, approversCount}) => {
 
     const { Header, Row, HeaderCell, Body } = Table;
+
+   function renderRows () {
+    return requests.map((request, index)=> {
+        return <RequestRow 
+        key={index}
+        id={index}
+        request={request}
+        address={address}
+        approversCount={approversCount}
+        />
+    });
+   }
 
     return (
         <Layout>
@@ -22,12 +35,13 @@ const RequestIndex = ({address}) => {
                         <HeaderCell>ID</HeaderCell>
                         <HeaderCell>Description</HeaderCell>
                         <HeaderCell>Amount</HeaderCell>
-                        <HeaderCell>Requests</HeaderCell>
+                        <HeaderCell>Recipient</HeaderCell>
                         <HeaderCell>Approval Count</HeaderCell>
                         <HeaderCell>Approve</HeaderCell>
                         <HeaderCell>Finalize</HeaderCell>
                     </Row>
                 </Header>
+                <Body>{renderRows()}</Body>
             </Table>
         </Layout>
     );
@@ -37,6 +51,7 @@ RequestIndex.getInitialProps = async (props) => {
     const address = props.query.address;
     const campaign = Campaign(address);
     const requestCount = await campaign.methods.getRequestsCount().call();
+    const approversCount = await campaign.methods.approversCount().call();
 
     const requests = await Promise.all(
         Array(parseInt(requestCount)).fill().map((element, index) => {
@@ -47,7 +62,7 @@ RequestIndex.getInitialProps = async (props) => {
     console.log("requests: ",requests);
 
     
-    return { address, requests, requestCount }
+    return { address, requests, requestCount, approversCount }
 }
 
 export default RequestIndex;
