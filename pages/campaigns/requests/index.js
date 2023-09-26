@@ -43,7 +43,7 @@ const RequestIndex = ({ address, requests, approversCount, requestCount }) => {
                 </Header>
                 <Body>{renderRows()}</Body>
             </Table>
-            <div>Found {requestCount} requests</div>
+            <div>Found {requestCount.toString()} requests</div>
         </Layout>
     );
 }
