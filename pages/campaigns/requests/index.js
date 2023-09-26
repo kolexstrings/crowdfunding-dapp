@@ -5,7 +5,7 @@ import Layout from '../../../components/Layout';
 import Campaign from '../../../ethereum/campaign';
 import RequestRow from '../../../components/RequestRow';
 
-const RequestIndex = ({address, requests, approversCount}) => {
+const RequestIndex = ({ address, requests, approversCount, requestCount }) => {
 
     const { Header, Row, HeaderCell, Body } = Table;
 
@@ -26,7 +26,7 @@ const RequestIndex = ({address, requests, approversCount}) => {
             <h3>Requests</h3>
             <Link route={`/campaigns/${address}/requests/new`}>
                 <a>
-                    <Button primary>Add Request</Button>
+                    <Button primary floated='right' style={{marginBottom: 10}} >Add Request</Button>
                 </a>
             </Link>
             <Table>
@@ -43,6 +43,7 @@ const RequestIndex = ({address, requests, approversCount}) => {
                 </Header>
                 <Body>{renderRows()}</Body>
             </Table>
+            <div>Found {requestCount} requests</div>
         </Layout>
     );
 }
@@ -60,6 +61,7 @@ RequestIndex.getInitialProps = async (props) => {
     );
 
     console.log("requests: ",requests);
+    console.log("requestCount: ", requestCount);
 
     
     return { address, requests, requestCount, approversCount }

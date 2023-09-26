@@ -7,13 +7,6 @@ import ContributeForm from '../../components/ContributeForm';
 import { Link } from '../../routes';
 
 const CampaignShow = ({ summary, address }) => {
-
-  if(summary) {
-    console.log("Summary found in CampaignShow: ", summary) 
-  } else {
-    console.log("No summary was recieved in CampaignShow");
-  }
-
   const { 
     minimumContribution,
     balance,
@@ -22,11 +15,6 @@ const CampaignShow = ({ summary, address }) => {
     manager,
   } = summary;
   const {} = address;
-
-  console.log("minimum contribution: ", minimumContribution)
-  console.log("request count: ", requestsCount);
-  console.log("approvers count: ", approversCount);
-  console.log("Address: ", address);
 
   const items = [
     {
@@ -96,7 +84,6 @@ CampaignShow.getInitialProps = async (props) => {
   try {
     const campaign = Campaign(props.query.address);
     const summary = await campaign.methods.getSummary().call();
-    console.log('Summary: ', summary);
     return {
       address: props.query.address,
       summary : {

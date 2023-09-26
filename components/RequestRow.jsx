@@ -12,7 +12,7 @@ const RequestRow = ({id, address, request, approversCount}) => {
     const amount = web3.utils.fromWei(request.value, 'ether');
     const recipient = request.recipient;
     const approvalCount = request.approvalCount.toString();
-    const readyToFinalize = request.approvalCount > approversCount / 2;
+    const readyToFinalize = request.approvalCount > approversCount.parseInt / 2;
 
     console.log("Ready to finalize is: ", readyToFinalize);
 
