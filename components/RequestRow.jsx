@@ -34,7 +34,7 @@ const RequestRow = ({id, address, request, approversCount}) => {
             await campaign.methods.finalizeRequest(id).send({
                 from: accounts[0]
             });
-            Router.pushRoute(`/campaigns/${address}/request`)
+            Router.pushRoute(`/campaigns/${address}/requests`)
         } catch(error) {
             console.error("There was an issue finalzing this request: ", error);
         }
