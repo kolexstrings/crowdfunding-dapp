@@ -14,11 +14,6 @@ const RequestRow = ({id, address, request, approversCount}) => {
     const approvalCount = request.approvalCount.toString();
     const readyToFinalize = request.approvalCount > approversCount.parseInt / 2;
 
-    console.log("Ready to finalize is: ", readyToFinalize);
-
-    const [errorMessage, setErrorMesage] = useState("");
-    const [loading, setLoading] = useState(false);
-
     async function handleApprove () {
         const campaign = Campaign(address);
         try {
